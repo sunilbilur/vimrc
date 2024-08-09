@@ -1,6 +1,10 @@
 " install vimplug if not installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
+    " setup nerdfonts, if it's the first run 
+    silent execute '!mkdir -p ~/.local/share/fonts; 
+        \curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf;
+        \mv DroidSansMNerdFont-Regular.otf ~/.local/share/fonts; fc-cache -fv'
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs 
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | :qa
@@ -12,7 +16,7 @@ call plug#begin()
     Plug 'preservim/nerdtree'
     Plug 'ryanoasis/vim-devicons'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug  'Xuyuanp/nerdtree-git-plugin'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     Plug 'vim-airline/vim-airline'
     Plug 'gcavallanti/vim-noscrollbar'
@@ -62,7 +66,7 @@ if !empty(glob(data_dir."/plugged/vim-airline"))
     let g:airline#extensions#tabline#enabled = 1
     if !empty(glob(data_dir."/plugged/vim-noscrollbar"))
         function! Noscrollbar(...)
-            let w:airline_section_x = '%{noscrollbar#statusline(40,"-","#")}'
+            let w:airline_section_x = '%{noscrollbar#statusline(50,"-","#")}'
         endfunction
         call airline#add_statusline_func('Noscrollbar')
     endif
